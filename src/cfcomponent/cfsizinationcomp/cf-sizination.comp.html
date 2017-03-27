@@ -1,0 +1,3 @@
+<select class="ui dropdown" [(ngModel)]="current_size">
+  <option *ngFor="let cfsize of cfsizination.getSizeAvailable()" [value]="cfsize.value">{{cfsize.label}}</option>
+</select>

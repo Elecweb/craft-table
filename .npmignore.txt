@@ -36,6 +36,7 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+
 # Node generated files
 node_modules
 npm-debug.log
@@ -43,6 +44,5 @@ npm-debug.log
 Thumbs.db
 .DS_Store
 # Ignored files
-*.js
-*.map
-*.d.ts
+*.ts
+!*.d.ts

@@ -1,0 +1,12 @@
+<table class="ui celled table">
+  <thead>
+    <th *ngFor="let header of cftable.getHead()"> 
+        {{header.getLabel()}}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of cftable.getBodyRow() let i = index">
+      <td *ngFor="let column of cftable.getColumn(i)">{{column.getValue()}} </td>
+   </tr>
+  </tbody>
+</table>

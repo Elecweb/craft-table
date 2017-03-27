@@ -1,0 +1,5 @@
+<div class="ui floated pagination menu {{class}}">
+    <a class="icon item" *ngFor="let page of cfpagination.page_available" (click)="setPage(page.value,true)" [ngClass]="{'active':page.isCurrent}">
+        {{page.label}}
+    </a>
+</div>
