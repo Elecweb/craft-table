@@ -6,6 +6,7 @@ export class CFPagination{
     cftabledata:CFTableDataService;
     page_available:Array<CFPage>;
     current_page:any = 1;
+    total_page:number;
     constructor(cftabledata:CFTableDataService){
         this.cftabledata = cftabledata;
         this.genPageAvailable();
@@ -20,13 +21,19 @@ export class CFPagination{
          
         });
     }
+    isLast():boolean{
+        return this.getCurrentPage() == this.total_page;
+    }   
 
+    isFirst():boolean{
+        return this.getCurrentPage() == 1;
+    }
     genPageAvailable(){
         let max_pages = 7;
         var res_arr = [];
-        let total_page = Math.ceil(this.cftabledata.getDataTotal() / this.cftabledata.getSize());
-        if(total_page <= max_pages){
-            total_page >= 2 ?   this.genCFPageAvailable(new Array(total_page).fill(1).map((x,i)=>i+1)) :  this.genCFPageAvailable([1]);
+        this.total_page = Math.ceil(this.cftabledata.getDataTotal() / this.cftabledata.getSize());
+        if(this.total_page <= max_pages){
+            this.total_page >= 2 ?   this.genCFPageAvailable(new Array(this.total_page).fill(1).map((x,i)=>i+1)) :  this.genCFPageAvailable([1]);
             return false;
         }
      
@@ -43,14 +50,14 @@ export class CFPagination{
             res_arr = [1,2,3,4,5];
         }
 
-        if(this.getCurrentPage() + 2 < total_page){
+        if(this.getCurrentPage() + 2 < this.total_page){
             res_arr.push("...");
-            res_arr.push(total_page);
+            res_arr.push(this.total_page);
         }
        
-        if(this.getCurrentPage() + 3 >= total_page){
+        if(this.getCurrentPage() + 3 >= this.total_page){
             
-            res_arr = [1,"...",total_page-4,total_page-3,total_page-2,total_page-1,total_page]
+            res_arr = [1,"...",this.total_page-4,this.total_page-3,this.total_page-2,this.total_page-1,this.total_page]
         }
         this.genCFPageAvailable(res_arr);
         
@@ -68,6 +75,18 @@ export class CFPagination{
                 pageitem.setCurrent(true);  
             }else{
                 pageitem.setCurrent(false);
+            }
+
+            if(pageitem.value == "1"){
+                pageitem.setFirst(true);
+            }else{
+                pageitem.setFirst(false);
+            }
+
+            if(pageitem.value == this.total_page+""){
+                pageitem.setLast(true);
+            }else{
+                 pageitem.setLast(false);
             }
             return pageitem;
          });

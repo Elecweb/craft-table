@@ -4,10 +4,12 @@ import { CFTableDataService } from './utility/cf-table-data.service';
 import { genCFBody } from './utility/cf-gen.static';
 import { isObservable } from './utility/cf-func-utility';
 import { Observable,Subject } from 'rxjs/Rx';
+import { CFFooter } from './cffooter';
 export class CFTable{
     header:CFHeader;
     body:CFBody = new CFBody([]);
     subject:CFTableDataService;
+    footer:CFFooter;
     constructor(header:CFHeader,cftabledataservice:CFTableDataService){
         this.header = header;
         this.subject = cftabledataservice;
@@ -67,6 +69,14 @@ export class CFTable{
     }
     
     setHeader(header:CFHeader):void{
-        this.header = this.header;
+        this.header = header;
+    }
+
+    setFooter(footer:CFFooter):void{
+        this.footer = footer;
+    }
+
+    getFooter():CFFooter{
+        return this.footer;
     }
 }

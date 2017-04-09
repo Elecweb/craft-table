@@ -2,6 +2,8 @@ export class CFPage{
     label:String;
     value:String;
     isCurrent:boolean;
+    isFirst:boolean;
+    isLast:boolean;
     constructor(label:String,value:String){
         this.label = label;
         this.value = value;
@@ -26,5 +28,13 @@ export class CFPage{
 
     setCurrent(isCurrent:boolean){
         this.isCurrent = isCurrent;
+    }
+
+    setFirst(isFirst:boolean){
+        this.isFirst = isFirst;
+    }
+
+    setLast(isLast:boolean){
+        this.isLast = isLast;
     }
 }

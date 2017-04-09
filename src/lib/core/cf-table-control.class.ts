@@ -11,8 +11,11 @@ import { CFPagination } from './../cfpagination/cf-pagination';
 import { CFPage  } from './../cfpagination/cfpage/cf-page';
 import { CFSize  } from './../cfsizination/cfsize/cf-size';
 import { CFSizination } from './../cfsizination/cf-sizination';
+import { Observable } from 'rxjs/Rx';
+import { CFFooter } from './../cffooter';
+import { CFFootBody } from './../cffootbody';
 export class ICFTableControlOption{
-    header:Array<Ihead>
+    header?:Array<Ihead>
     data?:Array<Object>
     getData?:any;
     navigating?:boolean;
@@ -33,8 +36,8 @@ export class CFTableControl{
         if(!options.navigating && !options.size){
             size = "all";
         }
-
-        this.cftabledata = new CFTableDataService({offset:options.offset,size:size,data:options.data || []});
+ 
+        this.cftabledata = new CFTableDataService({offset:options.offset,size:size,data:options.data ? options.data : []});
        
         if(options.getData){
             this.cftabledata.getData = options.getData;
@@ -42,7 +45,7 @@ export class CFTableControl{
         
         options.sizes = options.sizes ||  [new CFSize("10",10),new CFSize("20",20),new CFSize("30",30),new CFSize("40",40),new CFSize("50",50)];
 
-        this.table = new CFTable(CFGenStatic.getCFHeader(options.header),this.cftabledata);
+        this.table = new CFTable(CFGenStatic.genCFHeader(options.header ? options.header : []),this.cftabledata);
         if(options.navigating){
             this.pagination = new CFPagination(this.cftabledata);
             this.sizination = new CFSizination(this.cftabledata,options.sizes);
@@ -62,10 +65,16 @@ export class CFTableControl{
         return this.table.getHeader();
     }
     getHead():Array<CFHead>{
-        return this.table.getHeader().getHead();
+        return this.table.getHeader().getHead(this.pagination);
     }
-    setHeader(header:Array<Object>):void{
 
+    getFootHead():Array<CFHead>{
+        return this.getFooter().getHeader().getHead(this.pagination);
+    }
+
+    setHeader(header:CFHeader):void{
+        this.table.setHeader(header);
+        this.refresh();
     }
     setData(data:Array<Object>):void{
         this.cftabledata.setData(data);
@@ -73,7 +82,10 @@ export class CFTableControl{
     setTableData(cftabledata:CFTableDataService):void{
         this.cftabledata = cftabledata;
     }
-
+    setGetData(getData:(offset,size)=>any){
+        this.cftabledata.getData  = getData;
+        this.refresh();
+    }
     getTableData():CFTableDataService{
         return this.cftabledata;
     }
@@ -87,8 +99,29 @@ export class CFTableControl{
         }
         return column;
     }
+
+    getFootColumn():Array<CFColumn>{
+        let column = [];
+        if(!this.getFooter()){
+            return 
+        }
+        for(let head of this.getFootHead()){
+            if(this.getFooter().getBody().getRow()){
+                column.push(this.getFooter().getBody().getRow().get(head.getId()));
+            }
+            
+        }
+        return column;
+    }
     getBodyRow():Array<CFRow>{
         return this.table.getBody().getRows();
+    }
+
+    getFooterRow():CFRow{
+        if(!this.getFooter()){
+            return 
+        }
+        return this.getFooter().getBody().getRow();
     }
 
     getPagination():CFPagination{
@@ -107,6 +140,9 @@ export class CFTableControl{
         this.pagination.setPage(page);
     }
 
+    getCurrentPage():number{
+        return this.pagination.getCurrentPage();
+    }
 
     getSizes():Array<CFSize>{
         return this.sizination.getSizeAvailable();
@@ -140,4 +176,31 @@ export class CFTableControl{
     getSize():number{
         return this.cftabledata.getSize();
     }
+
+    refresh(){
+        this.cftabledata.refresh();
+    }
+
+    setFooterHeader(footer:CFHeader):void{
+        if(!this.getFooter()){
+            let cffooter = new CFFooter();
+            this.table.setFooter(cffooter);
+        }
+        this.getFooter().setHeader(footer);
+    }
+
+    getFooterHeader():CFHeader{
+        return this.getFooter().getHeader();
+    }
+    getFooter():CFFooter{
+        return this.table.getFooter();
+    }
+    setFooterBody(footbody:CFFootBody):void{
+        if(!this.getFooter()){
+            let cffooter = new CFFooter();
+            this.table.setFooter(cffooter);
+        }
+        this.getFooter().setBody(footbody);
+    }
+
 }

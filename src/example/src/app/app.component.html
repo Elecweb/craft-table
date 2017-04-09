@@ -1,0 +1,19 @@
+<table class="ui celled table">
+  <thead>
+    <th *ngFor="let header of myTable.getHead()"> 
+        {{header.getLabel()}}
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of myTable.getBodyRow() let i = index">
+      <td *ngFor="let column of myTable.getColumn(i)">{{column.getValue()}} </td>
+   </tr>
+  </tbody>
+  <tfoot *ngIf="myTable.getFooter()">
+    <tr>
+      <td *ngFor="let column of myTable.getFootColumn()">{{column.getValue()}} </td>
+   </tr>
+  </tfoot>
+</table>
+
+<cf-pagination [cfpagination]="myTable.pagination"></cf-pagination>

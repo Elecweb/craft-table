@@ -56,7 +56,7 @@ export class CFTableDataService {
         
     }
 
-    getData(offset:number,size:number):Array<Object>{
+    getData(offset:number,size:number):Array<Object> | Observable<Array<Object>>{
         this.setDataTotal(this.data.length);
         return this.data.slice(offset,offset + size);
     }
@@ -82,5 +82,8 @@ export class CFTableDataService {
         return this.dataSubject;
     }
 
+    refresh(){
+        this.dataSubject.next(true);
+    }
  
 }   
