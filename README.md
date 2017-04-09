@@ -39,7 +39,7 @@ _app.component.ts_:
 
 ```typescript
 import { Component } from '@angular/core';
-import { CFTableControl,Ihead,Type } from 'craft-table/craft-table';
+import { CFTableControl,Ihead,Type } from 'craft-table';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -102,7 +102,7 @@ _your-own-table.comp.html_:
 _your-own-table.comp.ts_:   
 ```typescript
 import { Component } from '@angular/core';
-import { CFTableControl,Ihead,Type } from './../../core/cf-table-control.class';
+import { CFTableControl,Ihead,Type } from 'craft-table';
 @Component({
     selector: 'your-own-table',
     templateUrl: './your-own-table.comp.html',
