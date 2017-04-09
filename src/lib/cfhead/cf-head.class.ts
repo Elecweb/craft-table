@@ -47,5 +47,5 @@ export class CFHead{
     getDisplay():CFHeadDisplay{
         return this.display;
     }
-
+    
 }

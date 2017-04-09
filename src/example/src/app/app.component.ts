@@ -14,26 +14,39 @@ export class AppComponent {
     {
       id:"member_code",
       type:Type.TEXT,
-      label:"รหัสสมาชิก"
+      label:"รหัสสมาชิก",
     },
     {
       id:"member_name",
       type:Type.TEXT,
       label:"ชื่อสมาชิก",
-      where:"@all"
+      // where:"@all"
+    },
+    {
+      id:"status",
+      type:Type.TEXT,
+      label:"status",
+      // where:"@all"
+    },
+    {
+      id:"member_surname",
+      type:Type.TEXT,
+      label:"นามสกุล",
+      // where:"@all"
     }
   ];
   footer:Array<Ihead> = [
      {
       id:"member_code",
       type:Type.TEXT,
-      label:"รหัสสมาชิก"
+      label:"รหัสสมาชิก",
+      pos:2
     },
     {
       id:"member_name",
       type:Type.TEXT,
       label:"ชื่อสมาชิก",
-      where:5
+      pos:4
     }
   ];
   data = [
@@ -209,11 +222,11 @@ export class AppComponent {
          body.append("size",size);
          body.append("offset",offset);
          
-        return <Observable<Array<Object>>>this.http.post('http://188.166.185.71/mju-co-op/api/stock/list',body).map((res:Response)=>{
+        return <Observable<Array<Object>>>this.http.post('http://188.166.185.71/mju-co-op/api/member/list',body).map((res:Response)=>{
           return res.json();
         }).map(res=>{
           this.myTable.setDataTotal(res.count);
-          return <Array<Object>>res.stocks;
+          return <Array<Object>>res.members;
         });
       });
     this.myTable.refresh();

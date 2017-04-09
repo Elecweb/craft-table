@@ -22,4 +22,8 @@ export class CFHeadDisplay{
     getSize():number{
         return this.size;
     }
+
+    getPos():number{
+        return this.pos;
+    }
 }

@@ -91,9 +91,13 @@ export class CFTableControl{
     }
     getColumn(row_index:number):Array<CFColumn>{
         let column = [];
-        for(let head of this.getHead()){
+        for(let head of this.getHead() ){
             if(this.table.getBody().getRows()[row_index]){
-                column.push(this.table.getBody().getRows()[row_index].get(head.getId()));
+                if(head){
+                    column.push(this.table.getBody().getRows()[row_index].get(head.getId()));
+                }else{
+                    column.push(undefined);
+                }
             }
             
         }
@@ -107,7 +111,11 @@ export class CFTableControl{
         }
         for(let head of this.getFootHead()){
             if(this.getFooter().getBody().getRow()){
-                column.push(this.getFooter().getBody().getRow().get(head.getId()));
+                if(head){
+                    column.push(this.getFooter().getBody().getRow().get(head.getId()));
+                }else{
+                    column.push(undefined);
+                }
             }
             
         }

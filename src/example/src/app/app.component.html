@@ -6,12 +6,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let row of myTable.getBodyRow() let i = index">
-      <td *ngFor="let column of myTable.getColumn(i)">{{column.getValue()}} </td>
+      <td *ngFor="let column of myTable.getColumn(i)">{{column?.getValue()}} </td>
    </tr>
   </tbody>
   <tfoot *ngIf="myTable.getFooter()">
     <tr>
-      <td *ngFor="let column of myTable.getFootColumn()">{{column.getValue()}} </td>
+      <td *ngFor="let column of myTable.getFootColumn()">{{column?.getValue()}} </td>
    </tr>
   </tfoot>
 </table>

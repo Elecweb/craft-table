@@ -25,7 +25,7 @@ export function genCFFootBody(data:Object):CFFootBody{
 export function genCFHeader(heads:Array<Ihead>):CFHeader{
     let cfheads = heads.map((head,index)=>{
         if(!head.pos){
-            head.pos = index;
+            head.pos = index+1;
         }
         if(!head.size){
             head.size = 1;

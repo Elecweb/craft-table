@@ -41,7 +41,6 @@ export class CFTable{
             return isObservable(data);
         })
         .switchMap((data:Observable<Array<Object>>)=>{
-            console.log("Data",data);
             return data;
         })
         .subscribe((data)=>{
@@ -50,7 +49,6 @@ export class CFTable{
             data = <Array<Object>> data;
               
             this.setBody(genCFBody(data));
-            console.log(this.subject.genData(),"gen");
         });
        
 

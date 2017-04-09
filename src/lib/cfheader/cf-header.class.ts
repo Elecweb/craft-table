@@ -16,13 +16,25 @@ export class CFHeader{
    }
 
    getHead(pagination?:CFPagination):Array<CFHead>{
+       let heads = this.heads;
+    //    console.log(heads,"heads");
+       var newheads = [];
+       let sortFn = (a:CFHead,b:CFHead)=>{
+            return a.getDisplay().getPos() - b.getDisplay().getPos();
+       };
+       let fillFn = head => {   
+  
+            newheads[head.getDisplay().getPos()-1] = head;
+       };
        if(!pagination){
-            return this.heads;
+          heads.sort(sortFn).map(fillFn);
        }else{
-          return this.heads.filter((head:CFHead)=>{
+          heads.filter((head:CFHead)=>{
               return head.getDisplay().getWhere() == "@all" || head.getDisplay().getWhere() == pagination.getCurrentPage() || (head.getDisplay().getWhere() == "@last" && pagination.isLast()) || (head.getDisplay().getWhere() == "@first" && pagination.isFirst());
-          });
+          }).sort(sortFn).map(fillFn);
        }
+       console.log(newheads,"newheads");
+       return newheads;
       
    }
 }
