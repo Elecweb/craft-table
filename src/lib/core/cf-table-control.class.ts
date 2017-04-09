@@ -53,6 +53,10 @@ export class CFTableControl{
        
     }
 
+    getSizination():CFSizination{
+        return this.sizination;
+    }
+
     getTable():CFTable{
         return this.table;
     }
