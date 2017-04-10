@@ -73,6 +73,9 @@ export class CFTableControl{
     }
 
     getFootHead():Array<CFHead>{
+        if(!this.getFooter().getHeader()){
+            return
+        }
         return this.getFooter().getHeader().getHead(this.pagination);
     }
 
@@ -110,8 +113,8 @@ export class CFTableControl{
 
     getFootColumn():Array<CFColumn>{
         let column = [];
-        if(!this.getFooter()){
-            return 
+        if(!this.getFooter() || !this.getFootHead()){
+            return [];
         }
         for(let head of this.getFootHead()){
             if(this.getFooter().getBody().getRow()){
@@ -215,4 +218,15 @@ export class CFTableControl{
         this.getFooter().setBody(footbody);
     }
 
+
+    getColumnOnRow(row:number,headid:string):CFColumn{
+        let heads = this. getHead();
+        let head = heads.filter((head)=>{
+            if(head){
+                return head.getId() == headid;
+            }
+            
+        })[0];
+        return this.table.getBody().getRows()[row].get(head.getId());
+    }
 }
