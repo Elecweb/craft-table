@@ -69,9 +69,15 @@ export class CFTableControl{
         return this.table.getHeader();
     }
     getHead():Array<CFHead>{
-        return this.table.getHeader().getHead(this.pagination);
+        let heads = this.table.getHeader().getHead(this.pagination);
+        return heads;
     }
-
+    getHeadWithId(id:string):CFHead{
+        let heads = this.table.getHeader().getHead(this.pagination);
+        if(id){
+            return heads.filter((head)=>{ return head.getId() == id;})[0];
+        }
+    }
     getFootHead():Array<CFHead>{
         if(!this.getFooter().getHeader()){
             return
@@ -101,13 +107,19 @@ export class CFTableControl{
         for(let head of this.getHead() ){
             if(this.table.getBody().getRows()[row_index]){
                 if(head){
-                    column.push(this.table.getBody().getRows()[row_index].get(head.getId()));
+                    if(head.getId() == "@index"){
+                        column.push(new CFColumn("@index",(row_index + this.cftabledata.getOffset()+1)+""));
+                    }else{
+                        column.push(this.table.getBody().getRows()[row_index].get(head.getId()));
+                    }
+                    
                 }else{
                     column.push(undefined);
                 }
             }
             
         }
+        
         return column;
     }
 

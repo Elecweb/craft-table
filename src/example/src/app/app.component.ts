@@ -15,12 +15,20 @@ export class AppComponent {
       id:"member_code",
       type:Type.TEXT,
       label:"รหัสสมาชิก",
+       style:{
+        ["color"]:"red"
+      }
     },
     {
       id:"member_name",
       type:Type.TEXT,
       label:"ชื่อสมาชิก",
       // where:"@all"
+    },
+    {
+      id:"@index",
+      type:Type.TEXT,
+      label:"index",
     },
     {
       id:"status",
@@ -40,7 +48,8 @@ export class AppComponent {
       id:"member_code",
       type:Type.TEXT,
       label:"รหัสสมาชิก",
-      pos:2
+      pos:2,
+     
     },
     {
       id:"member_name",

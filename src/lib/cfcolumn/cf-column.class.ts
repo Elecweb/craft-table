@@ -1,23 +1,23 @@
 export class CFColumn{
-    private id:String;
-    private value:String;
-    constructor(id:String,value:String){
+    private id:string;
+    private value:string;
+    constructor(id:string,value:string){
         this.id = id;
         this.value = value;
     }
-    getId():String{
+    getId():string{
         return this.id;
     }
 
-    setId(value:String):void{
+    setId(value:string):void{
         this.value = value;
     }
 
-    getValue():String{
+    getValue():string{
         return this.value;
     }
 
-    setValue(value:String):void{
+    setValue(value:string):void{
         this.value = value;
     }
 }

@@ -33,6 +33,9 @@ export function genCFHeader(heads:Array<Ihead>):CFHeader{
         if(!head.where){
             head.where = "@all";
         }
+        if(!head.style){
+            head.style = {};
+        }
         return genCFHead(head);
     });
     return new CFHeader(cfheads);
@@ -50,6 +53,6 @@ export function genCFColumn(){
 
 }
 export function genCFHead(head:Ihead):CFHead{
-    return new CFHead(head.type,head.id,head.label,head.size,head.pos,head.where);
+    return new CFHead(head.type,head.id,head.label,head.size,head.pos,head.where,head.style);
 }
 

@@ -7,16 +7,19 @@ export interface Ihead{
     size?:number,
     pos?:number,
     where?:number | string
+    style?:Object
 }
 export class CFHead{
     private type:Type;
     private id:string;
     private label:string;
     private display:CFHeadDisplay;
-    constructor(type:Type,id:string,label:string,size:number,pos:number,where:number | string){
+    private style:Object;
+    constructor(type:Type,id:string,label:string,size:number,pos:number,where:number | string,style:Object){
         this.label = label;
         this.id = id;
         this.type = type;
+        this.style = style;
         this.display = new CFHeadDisplay(size,pos,where);
     }
 
@@ -47,5 +50,8 @@ export class CFHead{
     getDisplay():CFHeadDisplay{
         return this.display;
     }
-    
+
+    getStyle():Object{
+        return this.style;
+    }
 }
